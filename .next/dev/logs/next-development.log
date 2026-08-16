@@ -1,0 +1,17 @@
+{"timestamp":"00:00:02.850","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:09.375","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:20.512","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:21.986","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:26.263","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:01:46.388","source":"Server","level":"LOG","message":"✓ Compiled in 107ms"}
+{"timestamp":"00:01:51.896","source":"Server","level":"LOG","message":"✓ Compiled in 67ms"}
+{"timestamp":"00:01:52.332","source":"Browser","level":"ERROR","message":"./components/Navbar.tsx:37:17\nError: Expected '</', got 'jsx text'\n  35 |             <span className=\"flex gap-1.5\">\n  36 |               \n> 37 |           </div>\n     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n> 38 |\n     | ^\n> 39 |           <nav className=\"hidden md:flex items-center gap-8\">\n     | ^^^^^^^^^^\n  40 |             {LINKS.map((link) => (\n  41 |               <a\n  42 |                 key={link.href}\n\nParsing ecmascript source code failed\n\nImport trace:\n  Server Component:\n    ./components/Navbar.tsx\n    ./app/page.tsx "}
+{"timestamp":"00:01:52.333","source":"Server","level":"ERROR","message":"[browser] \"./components/Navbar.tsx:37:17\\nError: Expected '</', got 'jsx text'\\n  35 |             <span className=\\\"flex gap-1.5\\\">\\n  36 |               \\n> 37 |           </div>\\n     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n> 38 |\\n     | ^\\n> 39 |           <nav className=\\\"hidden md:flex items-center gap-8\\\">\\n     | ^^^^^^^^^^\\n  40 |             {LINKS.map((link) => (\\n  41 |               <a\\n  42 |                 key={link.href}\\n\\nParsing ecmascript source code failed\\n\\nImport trace:\\n  Server Component:\\n    ./components/Navbar.tsx\\n    ./app/page.tsx\" \"\""}
+{"timestamp":"00:02:55.703","source":"Server","level":"LOG","message":"✓ Compiled in 58ms"}
+{"timestamp":"00:03:57.115","source":"Server","level":"LOG","message":"✓ Compiled in 49ms"}
+{"timestamp":"00:04:54.729","source":"Server","level":"LOG","message":"✓ Compiled in 82ms"}
+{"timestamp":"00:05:01.193","source":"Server","level":"LOG","message":"✓ Compiled in 82ms"}
+{"timestamp":"00:06:11.168","source":"Server","level":"LOG","message":"✓ Compiled in 60ms"}
+{"timestamp":"00:07:19.782","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:07:45.654","source":"Server","level":"LOG","message":"✓ Compiled in 60ms"}
+{"timestamp":"00:07:51.898","source":"Server","level":"LOG","message":"✓ Compiled in 146ms"}

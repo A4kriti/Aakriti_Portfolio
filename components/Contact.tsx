@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, Linkedin, Terminal, Send } from "lucide-react";
+import { Mail, Terminal, Send } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +11,26 @@ gsap.registerPlugin(ScrollTrigger);
 const PINK = "#F4A9C0";
 const LILAC = "#B9A6F2";
 const EYE = "#7EC8F0";
+
+// LinkedIn logo: lucide ma depend nagarne gari seedhai SVG
+function LinkedInIcon({
+  size = 18,
+}: {
+  size?: number;
+  strokeWidth?: number;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
 
 const CONTACTS = [
   {
@@ -21,7 +41,7 @@ const CONTACTS = [
     external: false,
   },
   {
-    icon: Linkedin,
+    icon: LinkedInIcon,
     label: "linkedin.com/in/aakritibastola",
     href: "https://www.linkedin.com/in/aakritibastola/",
     color: EYE,
@@ -64,12 +84,12 @@ export default function Contact() {
         )
         .from(
           ".contact-card",
-          { x: -40, opacity: 0, stagger: 0.12, duration: 0.6, ease: "power3.out" },
+          { x: -40, opacity: 0, stagger: 0.12, duration: 0.6, ease: "power3.out", clearProps: "transform,opacity" },
           "-=0.2"
         )
         .from(
           ".contact-field",
-          { y: 24, opacity: 0, stagger: 0.12, duration: 0.6, ease: "power3.out" },
+          { y: 24, opacity: 0, stagger: 0.12, duration: 0.6, ease: "power3.out", clearProps: "transform,opacity" },
           "-=0.6"
         );
     }, wrap);
@@ -124,8 +144,7 @@ export default function Contact() {
                 {...(external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="contact-card group flex items-center gap-3 rounded-lg border border-line bg-panel px-5 py-4 transition hover:-translate-y-0.5"
-                style={{ ["--c" as string]: color }}
+                className="contact-card group flex items-center gap-3 rounded-lg border border-line bg-panel px-5 py-4 transition-colors"
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.borderColor = `${color}88`)
                 }
@@ -181,7 +200,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition hover:-translate-y-0.5"
+              className="contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition-colors hover:brightness-110"
               style={{ backgroundColor: PINK, color: "#1A1424" }}
             >
               SEND_ENCRYPTED <Send size={14} />

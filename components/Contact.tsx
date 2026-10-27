@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, Terminal, Send } from "lucide-react";
+import { Mail, Terminal, Send, CheckCircle2 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,13 +12,12 @@ const PINK = "#F4A9C0";
 const LILAC = "#B9A6F2";
 const EYE = "#7EC8F0";
 
+const CONTACT_EMAIL = "krtbastola@gmail.com";
+const COOLDOWN_MS = 30_000;
+const TIMEOUT_MS = 10_000;
+
 // LinkedIn logo: lucide ma depend nagarne gari seedhai SVG
-function LinkedInIcon({
-  size = 18,
-}: {
-  size?: number;
-  strokeWidth?: number;
-}) {
+function LinkedInIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -35,8 +34,8 @@ function LinkedInIcon({
 const CONTACTS = [
   {
     icon: Mail,
-    label: "krtbastola@gmail.com",
-    href: "mailto:krtbastola@gmail.com",
+    label: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
     color: PINK,
     external: false,
   },
@@ -57,16 +56,27 @@ const CONTACTS = [
 ];
 
 const FIELD =
-  "contact-field w-full rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink placeholder:text-muted transition-colors focus:border-[#F4A9C0]/70 focus:outline-none focus:ring-1 focus:ring-[#F4A9C0]/30";
+  "contact-field w-full rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink placeholder:text-muted transition-colors focus:border-[#F4A9C0]/70 focus:outline-none focus:ring-1 focus:ring-[#F4A9C0]/30 aria-[invalid=true]:border-red-400/70";
+
+type Status = "idle" | "sending" | "sent" | "error";
+type FieldErrors = { name?: string; email?: string; message?: string };
+
+const EMAIL_RE = /^\S+@\S+\.\S+$/;
 
 export default function Contact() {
   const wrap = useRef<HTMLElement>(null);
+  const botcheck = useRef<HTMLInputElement>(null);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [sent, setSent] = useState(false);
 
+  const [status, setStatus] = useState<Status>("idle");
+  const [formError, setFormError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [cooldown, setCooldown] = useState(false);
+
+  // Entrance animation (runs once)
   useEffect(() => {
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (calm) return;
@@ -97,22 +107,128 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  // Cooldown timer (cleaned up on unmount)
+  useEffect(() => {
+    if (!cooldown) return;
+    const t = setTimeout(() => setCooldown(false), COOLDOWN_MS);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
+  // Clear stale messages as soon as the user edits a field
+  function onChange(
+    field: keyof FieldErrors,
+    setter: (v: string) => void
+  ) {
+    return (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      setter(e.target.value);
+      if (fieldErrors[field]) {
+        setFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+      }
+      if (status === "error") {
+        setStatus("idle");
+        setFormError("");
+      }
+    };
+  }
+
+  function validate(): FieldErrors {
+    const errs: FieldErrors = {};
+    if (!name.trim()) errs.name = "Please enter your name.";
+    if (!email.trim()) errs.email = "Please enter your email.";
+    else if (!EMAIL_RE.test(email.trim()))
+      errs.email = "Please enter a valid email address.";
+    if (!message.trim()) errs.message = "Please write a message.";
+    else if (message.trim().length < 10)
+      errs.message = "Message should be at least 10 characters.";
+    return errs;
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setError("Please fill in all fields first.");
-      setSent(false);
+    if (status === "sending" || cooldown) return;
+
+    // Honeypot: bots tick this hidden checkbox, humans never see it
+    if (botcheck.current?.checked) return;
+
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      setFormError("");
+      setStatus("idle");
       return;
     }
-    setError("");
-    setSent(true);
 
-    const subject = `Portfolio contact from ${name}`;
-    const body = `${message}\n\nFrom: ${email}`;
-    window.location.href = `mailto:krtbastola@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      setFormError(
+        `Contact form isn't configured. Please email me at ${CONTACT_EMAIL}.`
+      );
+      setStatus("error");
+      return;
+    }
+
+    setFieldErrors({});
+    setFormError("");
+    setStatus("sending");
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        signal: controller.signal,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Portfolio contact from ${name.trim()}`,
+          from_name: "Portfolio Contact Form",
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus("sent");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setCooldown(true);
+      } else {
+        setFormError(
+          data.message ||
+            `Couldn't send your message. You can email me at ${CONTACT_EMAIL}.`
+        );
+        setStatus("error");
+      }
+    } catch (err) {
+      const timedOut = err instanceof DOMException && err.name === "AbortError";
+      setFormError(
+        timedOut
+          ? `The request timed out. Please try again or email me at ${CONTACT_EMAIL}.`
+          : `Couldn't send right now. You can email me directly at ${CONTACT_EMAIL}.`
+      );
+      setStatus("error");
+    } finally {
+      clearTimeout(timeout);
+    }
   }
+
+  function resetForm() {
+    setStatus("idle");
+    setFormError("");
+    setFieldErrors({});
+  }
+
+  const sending = status === "sending";
 
   return (
     <section
@@ -161,51 +277,142 @@ export default function Contact() {
             ))}
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            <input
-              type="text"
-              aria-label="Your name"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={FIELD}
-            />
-            <input
-              type="email"
-              aria-label="Your email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={FIELD}
-            />
-            <textarea
-              aria-label="Your message"
-              placeholder="Message"
-              rows={4}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className={`${FIELD} resize-none`}
-            />
+          <div>
+            {status === "sent" ? (
+              <div
+                role="status"
+                aria-live="polite"
+                className="flex flex-col items-start gap-4 rounded-lg border border-line bg-panel px-6 py-8"
+              >
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-lg"
+                  style={{ backgroundColor: `${EYE}22`, color: EYE }}
+                >
+                  <CheckCircle2 size={20} strokeWidth={1.75} />
+                </span>
+                <div>
+                  <p className="font-display text-lg font-semibold text-ink">
+                    Message sent
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">
+                    Thanks for reaching out. I&apos;ll reply to your email soon.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  disabled={cooldown}
+                  className="rounded border border-line px-4 py-2 font-mono text-xs text-ink transition-colors hover:border-[#F4A9C0]/70 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {cooldown ? "Wait a moment to send another" : "Send another message"}
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                noValidate
+                aria-busy={sending}
+              >
+                {/* Honeypot (hidden from humans) */}
+                <input
+                  ref={botcheck}
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
 
-            {error && (
-              <p role="alert" className="text-xs text-red-400">
-                {error}
-              </p>
-            )}
-            {sent && !error && (
-              <p role="status" className="text-xs" style={{ color: EYE }}>
-                Opening your mail app. Just press send there.
-              </p>
-            )}
+                <div>
+                  <input
+                    type="text"
+                    aria-label="Your name"
+                    placeholder="Your Name"
+                    maxLength={100}
+                    autoComplete="name"
+                    value={name}
+                    onChange={onChange("name", setName)}
+                    aria-invalid={!!fieldErrors.name}
+                    aria-describedby={fieldErrors.name ? "err-name" : undefined}
+                    disabled={sending}
+                    className={FIELD}
+                  />
+                  {fieldErrors.name && (
+                    <p id="err-name" className="mt-1.5 text-xs text-red-400">
+                      {fieldErrors.name}
+                    </p>
+                  )}
+                </div>
 
-            <button
-              type="submit"
-              className="contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition-colors hover:brightness-110"
-              style={{ backgroundColor: PINK, color: "#1A1424" }}
-            >
-              SEND_ENCRYPTED <Send size={14} />
-            </button>
-          </form>
+                <div>
+                  <input
+                    type="email"
+                    aria-label="Your email"
+                    placeholder="Email"
+                    maxLength={150}
+                    autoComplete="email"
+                    value={email}
+                    onChange={onChange("email", setEmail)}
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={fieldErrors.email ? "err-email" : undefined}
+                    disabled={sending}
+                    className={FIELD}
+                  />
+                  {fieldErrors.email && (
+                    <p id="err-email" className="mt-1.5 text-xs text-red-400">
+                      {fieldErrors.email}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <textarea
+                    aria-label="Your message"
+                    placeholder="Message"
+                    rows={4}
+                    maxLength={2000}
+                    value={message}
+                    onChange={onChange("message", setMessage)}
+                    aria-invalid={!!fieldErrors.message}
+                    aria-describedby={fieldErrors.message ? "err-message" : undefined}
+                    disabled={sending}
+                    className={`${FIELD} resize-none`}
+                  />
+                  <div className="mt-1.5 flex items-start justify-between gap-3">
+                    {fieldErrors.message ? (
+                      <p id="err-message" className="text-xs text-red-400">
+                        {fieldErrors.message}
+                      </p>
+                    ) : (
+                      <span />
+                    )}
+                    <span className="shrink-0 text-xs text-muted">
+                      {message.length}/2000
+                    </span>
+                  </div>
+                </div>
+
+                {/* Announced to screen readers when it changes */}
+                <div aria-live="polite">
+                  {status === "error" && formError && (
+                    <p role="alert" className="text-xs text-red-400">
+                      {formError}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={sending || cooldown}
+                  className="contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition-colors hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                  style={{ backgroundColor: PINK, color: "#1A1424" }}
+                >
+                  {sending ? "SENDING..." : "SEND_ENCRYPTED"} <Send size={14} />
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>

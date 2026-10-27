@@ -94,7 +94,7 @@ export default function Intro() {
       <div
         className="intro-bg absolute inset-0 bg-cover bg-center bg-no-repeat opacity-0"
         style={{
-          backgroundImage: "url('/profile.jpeg')",
+          backgroundImage: "url('/IMG.jpeg')I",
         }}
       />
 

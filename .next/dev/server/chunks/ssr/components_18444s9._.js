@@ -302,6 +302,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$Scro
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mail.js [app-ssr] (ecmascript) <export default as Mail>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/terminal.js [app-ssr] (ecmascript) <export default as Terminal>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/send.js [app-ssr] (ecmascript) <export default as Send>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-check.js [app-ssr] (ecmascript) <export default as CheckCircle2>");
 "use client";
 ;
 ;
@@ -313,6 +314,9 @@ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e
 const PINK = "#F4A9C0";
 const LILAC = "#B9A6F2";
 const EYE = "#7EC8F0";
+const CONTACT_EMAIL = "krtbastola@gmail.com";
+const COOLDOWN_MS = 30_000;
+const TIMEOUT_MS = 10_000;
 // LinkedIn logo: lucide ma depend nagarne gari seedhai SVG
 function LinkedInIcon({ size = 18 }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -325,20 +329,20 @@ function LinkedInIcon({ size = 18 }) {
             d: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
         }, void 0, false, {
             fileName: "[project]/components/Contact.tsx",
-            lineNumber: 30,
+            lineNumber: 29,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/Contact.tsx",
-        lineNumber: 23,
+        lineNumber: 22,
         columnNumber: 5
     }, this);
 }
 const CONTACTS = [
     {
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"],
-        label: "krtbastola@gmail.com",
-        href: "mailto:krtbastola@gmail.com",
+        label: CONTACT_EMAIL,
+        href: `mailto:${CONTACT_EMAIL}`,
         color: PINK,
         external: false
     },
@@ -357,14 +361,19 @@ const CONTACTS = [
         external: true
     }
 ];
-const FIELD = "contact-field w-full rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink placeholder:text-muted transition-colors focus:border-[#F4A9C0]/70 focus:outline-none focus:ring-1 focus:ring-[#F4A9C0]/30";
+const FIELD = "contact-field w-full rounded-lg border border-line bg-panel px-4 py-3 text-sm text-ink placeholder:text-muted transition-colors focus:border-[#F4A9C0]/70 focus:outline-none focus:ring-1 focus:ring-[#F4A9C0]/30 aria-[invalid=true]:border-red-400/70";
+const EMAIL_RE = /^\S+@\S+\.\S+$/;
 function Contact() {
     const wrap = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const botcheck = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [name, setName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
-    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
-    const [sent, setSent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [status, setStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("idle");
+    const [formError, setFormError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [fieldErrors, setFieldErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
+    const [cooldown, setCooldown] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Entrance animation (runs once)
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (calm) return;
@@ -403,19 +412,101 @@ function Contact() {
         }, wrap);
         return ()=>ctx.revert();
     }, []);
-    function handleSubmit(e) {
+    // Cooldown timer (cleaned up on unmount)
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (!cooldown) return;
+        const t = setTimeout(()=>setCooldown(false), COOLDOWN_MS);
+        return ()=>clearTimeout(t);
+    }, [
+        cooldown
+    ]);
+    // Clear stale messages as soon as the user edits a field
+    function onChange(field, setter) {
+        return (e)=>{
+            setter(e.target.value);
+            if (fieldErrors[field]) {
+                setFieldErrors((prev)=>({
+                        ...prev,
+                        [field]: undefined
+                    }));
+            }
+            if (status === "error") {
+                setStatus("idle");
+                setFormError("");
+            }
+        };
+    }
+    function validate() {
+        const errs = {};
+        if (!name.trim()) errs.name = "Please enter your name.";
+        if (!email.trim()) errs.email = "Please enter your email.";
+        else if (!EMAIL_RE.test(email.trim())) errs.email = "Please enter a valid email address.";
+        if (!message.trim()) errs.message = "Please write a message.";
+        else if (message.trim().length < 10) errs.message = "Message should be at least 10 characters.";
+        return errs;
+    }
+    async function handleSubmit(e) {
         e.preventDefault();
-        if (!name.trim() || !email.trim() || !message.trim()) {
-            setError("Please fill in all fields first.");
-            setSent(false);
+        if (status === "sending" || cooldown) return;
+        // Honeypot: bots tick this hidden checkbox, humans never see it
+        if (botcheck.current?.checked) return;
+        const errs = validate();
+        if (Object.keys(errs).length > 0) {
+            setFieldErrors(errs);
+            setFormError("");
+            setStatus("idle");
             return;
         }
-        setError("");
-        setSent(true);
-        const subject = `Portfolio contact from ${name}`;
-        const body = `${message}\n\nFrom: ${email}`;
-        window.location.href = `mailto:krtbastola@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const accessKey = ("TURBOPACK compile-time value", "c190517d-fc51-46d9-abdf-f07cc82bcd63");
+        if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+        ;
+        setFieldErrors({});
+        setFormError("");
+        setStatus("sending");
+        const controller = new AbortController();
+        const timeout = setTimeout(()=>controller.abort(), TIMEOUT_MS);
+        try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                signal: controller.signal,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    subject: `Portfolio contact from ${name.trim()}`,
+                    from_name: "Portfolio Contact Form",
+                    name: name.trim(),
+                    email: email.trim(),
+                    message: message.trim()
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setStatus("sent");
+                setName("");
+                setEmail("");
+                setMessage("");
+                setCooldown(true);
+            } else {
+                setFormError(data.message || `Couldn't send your message. You can email me at ${CONTACT_EMAIL}.`);
+                setStatus("error");
+            }
+        } catch (err) {
+            const timedOut = err instanceof DOMException && err.name === "AbortError";
+            setFormError(timedOut ? `The request timed out. Please try again or email me at ${CONTACT_EMAIL}.` : `Couldn't send right now. You can email me directly at ${CONTACT_EMAIL}.`);
+            setStatus("error");
+        } finally{
+            clearTimeout(timeout);
+        }
     }
+    function resetForm() {
+        setStatus("idle");
+        setFormError("");
+        setFieldErrors({});
+    }
+    const sending = status === "sending";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: wrap,
         id: "contact",
@@ -436,13 +527,13 @@ function Contact() {
                             children: "connect."
                         }, void 0, false, {
                             fileName: "[project]/components/Contact.tsx",
-                            lineNumber: 126,
+                            lineNumber: 242,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Contact.tsx",
-                    lineNumber: 124,
+                    lineNumber: 240,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -450,7 +541,7 @@ function Contact() {
                     children: "Whether you're a recruiter, a fellow researcher, or someone who just wants to chat about security, I'd love to hear from you."
                 }, void 0, false, {
                     fileName: "[project]/components/Contact.tsx",
-                    lineNumber: 133,
+                    lineNumber: 249,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -479,12 +570,12 @@ function Contact() {
                                                 strokeWidth: 1.75
                                             }, void 0, false, {
                                                 fileName: "[project]/components/Contact.tsx",
-                                                lineNumber: 157,
+                                                lineNumber: 273,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/Contact.tsx",
-                                            lineNumber: 153,
+                                            lineNumber: 269,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -492,125 +583,294 @@ function Contact() {
                                             children: label
                                         }, void 0, false, {
                                             fileName: "[project]/components/Contact.tsx",
-                                            lineNumber: 159,
+                                            lineNumber: 275,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, label, true, {
                                     fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 141,
+                                    lineNumber: 257,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/components/Contact.tsx",
-                            lineNumber: 139,
+                            lineNumber: 255,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                            onSubmit: handleSubmit,
-                            className: "space-y-4",
-                            noValidate: true,
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "text",
-                                    "aria-label": "Your name",
-                                    placeholder: "Your Name",
-                                    value: name,
-                                    onChange: (e)=>setName(e.target.value),
-                                    className: FIELD
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 165,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "email",
-                                    "aria-label": "Your email",
-                                    placeholder: "Email",
-                                    value: email,
-                                    onChange: (e)=>setEmail(e.target.value),
-                                    className: FIELD
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 173,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                    "aria-label": "Your message",
-                                    placeholder: "Message",
-                                    rows: 4,
-                                    value: message,
-                                    onChange: (e)=>setMessage(e.target.value),
-                                    className: `${FIELD} resize-none`
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 181,
-                                    columnNumber: 13
-                                }, this),
-                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    role: "alert",
-                                    className: "text-xs text-red-400",
-                                    children: error
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 191,
-                                    columnNumber: 15
-                                }, this),
-                                sent && !error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    role: "status",
-                                    className: "text-xs",
-                                    style: {
-                                        color: EYE
-                                    },
-                                    children: "Opening your mail app. Just press send there."
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 196,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    type: "submit",
-                                    className: "contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition-colors hover:brightness-110",
-                                    style: {
-                                        backgroundColor: PINK,
-                                        color: "#1A1424"
-                                    },
-                                    children: [
-                                        "SEND_ENCRYPTED ",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__["Send"], {
-                                            size: 14
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: status === "sent" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                role: "status",
+                                "aria-live": "polite",
+                                className: "flex flex-col items-start gap-4 rounded-lg border border-line bg-panel px-6 py-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "flex h-10 w-10 items-center justify-center rounded-lg",
+                                        style: {
+                                            backgroundColor: `${EYE}22`,
+                                            color: EYE
+                                        },
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
+                                            size: 20,
+                                            strokeWidth: 1.75
                                         }, void 0, false, {
                                             fileName: "[project]/components/Contact.tsx",
-                                            lineNumber: 206,
-                                            columnNumber: 30
+                                            lineNumber: 291,
+                                            columnNumber: 19
                                         }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/Contact.tsx",
-                                    lineNumber: 201,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 287,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "font-display text-lg font-semibold text-ink",
+                                                children: "Message sent"
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 294,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "mt-1 text-sm leading-relaxed text-muted",
+                                                children: "Thanks for reaching out. I'll reply to your email soon."
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 297,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 293,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: resetForm,
+                                        disabled: cooldown,
+                                        className: "rounded border border-line px-4 py-2 font-mono text-xs text-ink transition-colors hover:border-[#F4A9C0]/70 disabled:cursor-not-allowed disabled:opacity-50",
+                                        children: cooldown ? "Wait a moment to send another" : "Send another message"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 301,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/Contact.tsx",
+                                lineNumber: 282,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                                onSubmit: handleSubmit,
+                                className: "space-y-4",
+                                noValidate: true,
+                                "aria-busy": sending,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        ref: botcheck,
+                                        type: "checkbox",
+                                        name: "botcheck",
+                                        className: "hidden",
+                                        tabIndex: -1,
+                                        autoComplete: "off"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 318,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "text",
+                                                "aria-label": "Your name",
+                                                placeholder: "Your Name",
+                                                maxLength: 100,
+                                                autoComplete: "name",
+                                                value: name,
+                                                onChange: onChange("name", setName),
+                                                "aria-invalid": !!fieldErrors.name,
+                                                "aria-describedby": fieldErrors.name ? "err-name" : undefined,
+                                                disabled: sending,
+                                                className: FIELD
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 328,
+                                                columnNumber: 19
+                                            }, this),
+                                            fieldErrors.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                id: "err-name",
+                                                className: "mt-1.5 text-xs text-red-400",
+                                                children: fieldErrors.name
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 342,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 327,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "email",
+                                                "aria-label": "Your email",
+                                                placeholder: "Email",
+                                                maxLength: 150,
+                                                autoComplete: "email",
+                                                value: email,
+                                                onChange: onChange("email", setEmail),
+                                                "aria-invalid": !!fieldErrors.email,
+                                                "aria-describedby": fieldErrors.email ? "err-email" : undefined,
+                                                disabled: sending,
+                                                className: FIELD
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 349,
+                                                columnNumber: 19
+                                            }, this),
+                                            fieldErrors.email && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                id: "err-email",
+                                                className: "mt-1.5 text-xs text-red-400",
+                                                children: fieldErrors.email
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 363,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 348,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                                "aria-label": "Your message",
+                                                placeholder: "Message",
+                                                rows: 4,
+                                                maxLength: 2000,
+                                                value: message,
+                                                onChange: onChange("message", setMessage),
+                                                "aria-invalid": !!fieldErrors.message,
+                                                "aria-describedby": fieldErrors.message ? "err-message" : undefined,
+                                                disabled: sending,
+                                                className: `${FIELD} resize-none`
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 370,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "mt-1.5 flex items-start justify-between gap-3",
+                                                children: [
+                                                    fieldErrors.message ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        id: "err-message",
+                                                        className: "text-xs text-red-400",
+                                                        children: fieldErrors.message
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/Contact.tsx",
+                                                        lineNumber: 384,
+                                                        columnNumber: 23
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {}, void 0, false, {
+                                                        fileName: "[project]/components/Contact.tsx",
+                                                        lineNumber: 388,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "shrink-0 text-xs text-muted",
+                                                        children: [
+                                                            message.length,
+                                                            "/2000"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/components/Contact.tsx",
+                                                        lineNumber: 390,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 382,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 369,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        "aria-live": "polite",
+                                        children: status === "error" && formError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            role: "alert",
+                                            className: "text-xs text-red-400",
+                                            children: formError
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/Contact.tsx",
+                                            lineNumber: 399,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 397,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "submit",
+                                        disabled: sending || cooldown,
+                                        className: "contact-field inline-flex items-center gap-2 rounded px-6 py-3 font-mono text-sm font-medium transition-colors hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60",
+                                        style: {
+                                            backgroundColor: PINK,
+                                            color: "#1A1424"
+                                        },
+                                        children: [
+                                            sending ? "SENDING..." : "SEND_ENCRYPTED",
+                                            " ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__["Send"], {
+                                                size: 14
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/Contact.tsx",
+                                                lineNumber: 411,
+                                                columnNumber: 63
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/Contact.tsx",
+                                        lineNumber: 405,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/Contact.tsx",
+                                lineNumber: 311,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
                             fileName: "[project]/components/Contact.tsx",
-                            lineNumber: 164,
+                            lineNumber: 280,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Contact.tsx",
-                    lineNumber: 138,
+                    lineNumber: 254,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/Contact.tsx",
-            lineNumber: 123,
+            lineNumber: 239,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/Contact.tsx",
-        lineNumber: 118,
+        lineNumber: 234,
         columnNumber: 5
     }, this);
 }
@@ -1001,7 +1261,7 @@ function Intro() {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "intro-bg absolute inset-0 bg-cover bg-center bg-no-repeat opacity-0",
                 style: {
-                    backgroundImage: "url('/profile.jpeg')"
+                    backgroundImage: "url('/IMG.jpeg')I"
                 }
             }, void 0, false, {
                 fileName: "[project]/components/Intro.tsx",

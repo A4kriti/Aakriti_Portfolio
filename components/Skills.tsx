@@ -35,7 +35,7 @@ const TECHNICAL = [
     emoji: "🖥️",
     title: "Programming",
     desc: "Writing scripts and tools to automate security tasks, analyze data, and understand vulnerable code.",
-    tags: ["Python", "Bash", "C", "JavaScript"],
+    tags: ["Python", "Bash", "C", "JavaScript", "Next.js", "React", "Tailwind"],
   },
 ];
 

@@ -163,84 +163,88 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 ;
+const PINK = "#F4A9C0";
+const SUMMARY = "#A7B0C0";
 const posts = [
     {
-        title: "My First Cybersecurity Write-up",
-        date: "Oct 2026",
-        summary: "What I learned solving my first TryHackMe room.",
-        link: "#"
-    },
-    {
-        title: "Getting Started with Ethical Hacking",
-        date: "Sep 2026",
-        summary: "Tools, mindset, and resources for beginners.",
-        link: "#"
-    },
-    {
-        title: "Building My Portfolio with Next.js",
-        date: "Aug 2026",
-        summary: "How I built and deployed this site with Vercel.",
-        link: "#"
+        title: "From Code to Cloud: How I Deployed My Portfolio with a Custom Domain, GitHub Collaboration & CI/CD",
+        summary: "A walkthrough of taking my portfolio from local code to a live site, covering custom domain setup, collaborating through GitHub, and automating deployments with CI/CD.",
+        link: "https://medium.com/@krtbastola/from-code-to-cloud-how-i-deployed-my-portfolio-with-a-custom-domain-github-collaboration-ci-cd-ce7fd2e6b31b"
     }
 ];
 function Blogs() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "blogs",
-        className: "px-6 py-20",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                className: "mb-10 text-center text-3xl font-bold text-cyan-400 md:text-4xl",
-                children: "Blogs"
-            }, void 0, false, {
-                fileName: "[project]/components/Blogs.tsx",
-                lineNumber: 25,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mx-auto grid max-w-5xl gap-6 md:grid-cols-3",
-                children: posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                        href: post.link,
-                        className: "rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-cyan-400",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-amber-400",
-                                children: post.date
-                            }, void 0, false, {
-                                fileName: "[project]/components/Blogs.tsx",
-                                lineNumber: 36,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "mt-2 text-lg font-semibold text-white",
-                                children: post.title
-                            }, void 0, false, {
-                                fileName: "[project]/components/Blogs.tsx",
-                                lineNumber: 37,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-2 text-sm text-gray-400",
-                                children: post.summary
-                            }, void 0, false, {
-                                fileName: "[project]/components/Blogs.tsx",
-                                lineNumber: 40,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, post.title, true, {
-                        fileName: "[project]/components/Blogs.tsx",
-                        lineNumber: 31,
-                        columnNumber: 11
-                    }, this))
-            }, void 0, false, {
-                fileName: "[project]/components/Blogs.tsx",
-                lineNumber: 29,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+        className: "relative border-t border-line py-20",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "mx-auto max-w-6xl px-5",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                    className: "mb-10 font-display text-3xl font-semibold text-ink sm:text-4xl",
+                    children: "Blogs"
+                }, void 0, false, {
+                    fileName: "[project]/components/Blogs.tsx",
+                    lineNumber: 17,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "grid gap-6",
+                    children: posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                            href: post.link,
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                            className: "rounded-lg border border-line bg-panel p-6 text-left transition-colors hover:border-[#F4A9C0]/60 md:p-8",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                    className: "text-lg font-semibold text-ink md:text-xl",
+                                    children: post.title
+                                }, void 0, false, {
+                                    fileName: "[project]/components/Blogs.tsx",
+                                    lineNumber: 30,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "mt-3 max-w-3xl text-sm leading-relaxed md:text-base",
+                                    style: {
+                                        color: SUMMARY
+                                    },
+                                    children: post.summary
+                                }, void 0, false, {
+                                    fileName: "[project]/components/Blogs.tsx",
+                                    lineNumber: 33,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "mt-5 inline-block text-sm",
+                                    style: {
+                                        color: PINK
+                                    },
+                                    children: "Read Article →"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/Blogs.tsx",
+                                    lineNumber: 39,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, post.link, true, {
+                            fileName: "[project]/components/Blogs.tsx",
+                            lineNumber: 23,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/components/Blogs.tsx",
+                    lineNumber: 21,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/components/Blogs.tsx",
+            lineNumber: 16,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/components/Blogs.tsx",
-        lineNumber: 24,
+        lineNumber: 15,
         columnNumber: 5
     }, this);
 }
@@ -675,7 +679,10 @@ const TECHNICAL = [
             "Python",
             "Bash",
             "C",
-            "JavaScript"
+            "JavaScript",
+            "Next.js",
+            "React",
+            "Tailwind"
         ]
     }
 ];

@@ -7,7 +7,7 @@ import { Mail, Terminal, Send, CheckCircle2 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// cat theme colors (Hero jastai)
+
 const PINK = "#F4A9C0";
 const LILAC = "#B9A6F2";
 const EYE = "#7EC8F0";
@@ -16,7 +16,7 @@ const CONTACT_EMAIL = "krtbastola@gmail.com";
 const COOLDOWN_MS = 30_000;
 const TIMEOUT_MS = 10_000;
 
-// LinkedIn logo: lucide ma depend nagarne gari seedhai SVG
+
 function LinkedInIcon({ size = 18 }: { size?: number }) {
   return (
     <svg

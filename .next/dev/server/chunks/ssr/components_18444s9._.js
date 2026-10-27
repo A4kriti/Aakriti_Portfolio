@@ -310,14 +310,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 ;
 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].registerPlugin(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$ScrollTrigger$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ScrollTrigger"]);
-// cat theme colors (Hero jastai)
 const PINK = "#F4A9C0";
 const LILAC = "#B9A6F2";
 const EYE = "#7EC8F0";
 const CONTACT_EMAIL = "krtbastola@gmail.com";
 const COOLDOWN_MS = 30_000;
 const TIMEOUT_MS = 10_000;
-// LinkedIn logo: lucide ma depend nagarne gari seedhai SVG
 function LinkedInIcon({ size = 18 }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
         width: size,

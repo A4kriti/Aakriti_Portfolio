@@ -7,48 +7,48 @@ html {
 }
 
 body {
-  background-color: #0A0E14;
-  color: #E6EDF3;
+  background-color: #1E1B33;
+  color: #F4F2FC;
 }
 
 ::selection {
-  background: #5B9DFF;
-  color: #0A0E14;
+  background: #F4A9C0;
+  color: #1E1B33;
 }
 
-/* thin custom scrollbar to match terminal aesthetic */
+/* thin custom scrollbar to match the new theme */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0E14;
+  background: #1E1B33;
 }
 ::-webkit-scrollbar-thumb {
-  background: #232B38;
-  border: 2px solid #0A0E14;
+  background: #413D66;
+  border: 2px solid #1E1B33;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2E9C93;
+  background: #B9A6F2;
 }
 
 .command-label {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.02em;
-  color: #5B9DFF;
+  color: #F4A9C0;
 }
 
 .command-label::before {
   content: "$ ";
-  color: #7A8699;
+  color: #BDB9D6;
 }
 
 .section-num {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  color: #8A8A85;
+  color: #BDB9D6;
 }
 
 @media (prefers-reduced-motion: reduce) {

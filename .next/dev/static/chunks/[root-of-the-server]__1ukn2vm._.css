@@ -865,8 +865,20 @@ img, video {
   margin-top: .25rem;
 }
 
+.mt-1\.5 {
+  margin-top: .375rem;
+}
+
 .mt-2 {
   margin-top: .5rem;
+}
+
+.mt-3 {
+  margin-top: .75rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .mt-6 {
@@ -875,10 +887,6 @@ img, video {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-1\.5 {
-  margin-top: .375rem;
 }
 
 .block {
@@ -905,6 +913,10 @@ img, video {
   display: none;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -917,12 +929,12 @@ img, video {
   height: 100dvh;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-9 {
@@ -933,16 +945,12 @@ img, video {
   width: 100%;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
 .max-w-2xl {
   max-width: 42rem;
 }
 
-.max-w-5xl {
-  max-width: 64rem;
+.max-w-3xl {
+  max-width: 48rem;
 }
 
 .max-w-6xl {
@@ -1111,10 +1119,6 @@ img, video {
   border-color: rgb(38 39 44 / var(--tw-border-opacity, 1));
 }
 
-.border-white\/10 {
-  border-color: #ffffff1a;
-}
-
 .bg-accent\/5 {
   background-color: #5b9dff0d;
 }
@@ -1150,10 +1154,6 @@ img, video {
   background-color: #0000;
 }
 
-.bg-white\/5 {
-  background-color: #ffffff0d;
-}
-
 .bg-cover {
   background-size: cover;
 }
@@ -1164,10 +1164,6 @@ img, video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
-}
-
-.p-5 {
-  padding: 1.25rem;
 }
 
 .p-6 {
@@ -1246,6 +1242,10 @@ img, video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -1361,11 +1361,6 @@ img, video {
   color: rgb(91 157 255 / var(--tw-text-opacity, 1));
 }
 
-.text-amber-400 {
-  --tw-text-opacity: 1;
-  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
-}
-
 .text-base {
   --tw-text-opacity: 1;
   color: rgb(11 12 14 / var(--tw-text-opacity, 1));
@@ -1374,16 +1369,6 @@ img, video {
 .text-cyan-300 {
   --tw-text-opacity: 1;
   color: rgb(103 232 249 / var(--tw-text-opacity, 1));
-}
-
-.text-cyan-400 {
-  --tw-text-opacity: 1;
-  color: rgb(34 211 238 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 
 .text-ink {
@@ -1442,13 +1427,13 @@ html {
 }
 
 body {
-  color: #e6edf3;
-  background-color: #0a0e14;
+  color: #f4f2fc;
+  background-color: #1e1b33;
 }
 
 ::selection {
-  color: #0a0e14;
-  background: #5b9dff;
+  color: #1e1b33;
+  background: #f4a9c0;
 }
 
 ::-webkit-scrollbar {
@@ -1456,35 +1441,35 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0e14;
+  background: #1e1b33;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232b38;
-  border: 2px solid #0a0e14;
+  background: #413d66;
+  border: 2px solid #1e1b33;
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2e9c93;
+  background: #b9a6f2;
 }
 
 .command-label {
   font-family: var(--font-mono);
   letter-spacing: .02em;
-  color: #5b9dff;
+  color: #f4a9c0;
   font-size: .8rem;
 }
 
 .command-label:before {
   content: "$ ";
-  color: #7a8699;
+  color: #bdb9d6;
 }
 
 .section-num {
   font-family: var(--font-mono);
   letter-spacing: .08em;
-  color: #8a8a85;
+  color: #bdb9d6;
   font-size: .8rem;
 }
 
@@ -1507,17 +1492,16 @@ body {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:border-accent\/40:hover {
-  border-color: #5b9dff66;
-}
-
-.hover\:border-cyan-400:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(34 211 238 / var(--tw-border-opacity, 1));
+.hover\:border-\[\#F4A9C0\]\/60:hover {
+  border-color: #f4a9c099;
 }
 
 .hover\:border-\[\#F4A9C0\]\/70:hover {
   border-color: #f4a9c0b3;
+}
+
+.hover\:border-accent\/40:hover {
+  border-color: #5b9dff66;
 }
 
 .hover\:bg-accent\/10:hover {
@@ -1635,17 +1619,12 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .md\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .md\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+  .md\:p-8 {
+    padding: 2rem;
   }
 
   .md\:text-6xl {
@@ -1656,6 +1635,21 @@ body {
   .md\:text-7xl {
     font-size: 4.5rem;
     line-height: 1;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-base {
+    --tw-text-opacity: 1;
+    color: rgb(11 12 14 / var(--tw-text-opacity, 1));
   }
 }
 

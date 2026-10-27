@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/theme-toggle";
 
 const LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  
   { label: "Contact", href: "#contact" },
 ];
 
@@ -18,73 +18,69 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Hero photo mathi (scroll agadi): safed text. Scroll pachi: theme colors.
+  const linkColor = scrolled
+    ? "text-muted hover:text-pink"
+    : "text-white/80 hover:text-pink";
+  const iconColor = scrolled ? "text-ink" : "text-white";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-panel/90 backdrop-blur border-b border-line" : "bg-transparent"
+        scrolled
+          ? "bg-panel/90 backdrop-blur border-b border-line"
+          : "bg-transparent"
       }`}
     >
-      {/* terminal window chrome */}
       <div className="mx-auto max-w-6xl px-5">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-      
-              
-          </div>
+        <div className="flex h-16 items-center justify-between">
+          <div />
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden items-center gap-8 md:flex">
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="font-mono text-sm text-muted hover:text-accent transition-colors"
+                className={`font-mono text-sm transition-colors ${linkColor}`}
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="/AakritiResume.pdf"
-              download
-              className="font-mono text-sm px-4 py-2 border border-accent/40 text-accent hover:bg-accent/10 transition-colors rounded"
-            >
-              cv
-            </a>
+            <ThemeToggle />
           </nav>
 
-          <button
-            className="md:hidden text-ink"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle />
+            <button
+              className={iconColor}
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
       {open && (
-        <div className="md:hidden bg-panel border-t border-line">
-          <nav className="flex flex-col px-5 py-4 gap-4">
+        <div className="border-t border-line bg-panel md:hidden">
+          <nav className="flex flex-col gap-4 px-5 py-4">
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="font-mono text-sm text-muted hover:text-accent transition-colors"
+                className="font-mono text-sm text-muted transition-colors hover:text-pink"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="/cv.pdf"
-              download
-              className="font-mono text-sm text-accent"
-            >
-              ./resume
-            </a>
           </nav>
         </div>
       )}

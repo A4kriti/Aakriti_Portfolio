@@ -2,53 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Light */
+  --bg: 251 249 255;
+  --panel: 255 255 255;
+  --line: 227 222 242;
+  --ink: 30 27 51;
+  --muted: 94 90 122;
+  --pink: 217 96 140;
+  --lilac: 124 95 214;
+  --eye: 43 140 196;
+  color-scheme: light;
+}
+
+.dark {
+  /* Dark */
+  --bg: 30 27 51;
+  --panel: 42 39 69;
+  --line: 65 61 102;
+  --ink: 244 242 252;
+  --muted: 189 185 214;
+  --pink: 244 169 192;
+  --lilac: 185 166 242;
+  --eye: 126 200 240;
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #1E1B33;
-  color: #F4F2FC;
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
 }
 
 ::selection {
-  background: #F4A9C0;
-  color: #1E1B33;
+  background: rgb(var(--pink));
+  color: rgb(var(--bg));
 }
 
-/* thin custom scrollbar to match the new theme */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #1E1B33;
+  background: rgb(var(--bg));
 }
 ::-webkit-scrollbar-thumb {
-  background: #413D66;
-  border: 2px solid #1E1B33;
+  background: rgb(var(--line));
+  border: 2px solid rgb(var(--bg));
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B9A6F2;
+  background: rgb(var(--lilac));
 }
 
 .command-label {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.02em;
-  color: #F4A9C0;
+  color: rgb(var(--pink));
 }
 
 .command-label::before {
   content: "$ ";
-  color: #BDB9D6;
+  color: rgb(var(--muted));
 }
 
 .section-num {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  color: #BDB9D6;
+  color: rgb(var(--muted));
 }
 
 @media (prefers-reduced-motion: reduce) {

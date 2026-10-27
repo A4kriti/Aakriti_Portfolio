@@ -413,6 +413,10 @@ img, video {
   height: 4rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-9 {
   height: 2.25rem;
 }
@@ -429,8 +433,16 @@ img, video {
   width: 2.5rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-9 {
   width: 2.25rem;
+}
+
+.w-\[104px\] {
+  width: 104px;
 }
 
 .w-full {
@@ -496,6 +508,10 @@ img, video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-1 {
+  gap: .25rem;
 }
 
 .gap-10 {
@@ -582,6 +598,10 @@ img, video {
   border-radius: .5rem;
 }
 
+.rounded-md {
+  border-radius: .375rem;
+}
+
 .rounded-xl {
   border-radius: .75rem;
 }
@@ -600,10 +620,6 @@ img, video {
 
 .border-accent\/20 {
   border-color: #5b9dff33;
-}
-
-.border-accent\/40 {
-  border-color: #5b9dff66;
 }
 
 .border-line {
@@ -656,6 +672,10 @@ img, video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.p-1 {
+  padding: .25rem;
 }
 
 .p-6 {
@@ -883,6 +903,10 @@ img, video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-white\/80 {
+  color: #fffc;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -914,18 +938,46 @@ img, video {
   transition-duration: .3s;
 }
 
+:root {
+  --bg: 251 249 255;
+  --panel: 255 255 255;
+  --line: 227 222 242;
+  --ink: 30 27 51;
+  --muted: 94 90 122;
+  --pink: 217 96 140;
+  --lilac: 124 95 214;
+  --eye: 43 140 196;
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 30 27 51;
+  --panel: 42 39 69;
+  --line: 65 61 102;
+  --ink: 244 242 252;
+  --muted: 189 185 214;
+  --pink: 244 169 192;
+  --lilac: 185 166 242;
+  --eye: 126 200 240;
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  color: #f4f2fc;
-  background-color: #1e1b33;
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
 }
 
 ::selection {
-  color: #1e1b33;
-  background: #f4a9c0;
+  background: rgb(var(--pink));
+  color: rgb(var(--bg));
 }
 
 ::-webkit-scrollbar {
@@ -933,35 +985,35 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e1b33;
+  background: rgb(var(--bg));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #413d66;
-  border: 2px solid #1e1b33;
+  background: rgb(var(--line));
+  border: 2px solid rgb(var(--bg));
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9a6f2;
+  background: rgb(var(--lilac));
 }
 
 .command-label {
   font-family: var(--font-mono);
   letter-spacing: .02em;
-  color: #f4a9c0;
+  color: rgb(var(--pink));
   font-size: .8rem;
 }
 
 .command-label:before {
   content: "$ ";
-  color: #bdb9d6;
+  color: rgb(var(--muted));
 }
 
 .section-num {
   font-family: var(--font-mono);
   letter-spacing: .08em;
-  color: #bdb9d6;
+  color: rgb(var(--muted));
   font-size: .8rem;
 }
 
@@ -996,17 +1048,13 @@ body {
   border-color: #5b9dff66;
 }
 
-.hover\:bg-accent\/10:hover {
-  background-color: #5b9dff1a;
-}
-
 .hover\:bg-white\/10:hover {
   background-color: #ffffff1a;
 }
 
-.hover\:text-accent:hover {
+.hover\:text-ink:hover {
   --tw-text-opacity: 1;
-  color: rgb(91 157 255 / var(--tw-text-opacity, 1));
+  color: rgb(245 246 248 / var(--tw-text-opacity, 1));
 }
 
 .hover\:brightness-110:hover {
